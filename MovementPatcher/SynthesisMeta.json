@@ -1,0 +1,8 @@
+{
+  "Nickname": "MovementPatcher",
+  "Visibility": "Visible",
+  "OneLineDescription": "Sync player & NPC speeds, fully customizable.",
+  "LongDescription": "",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": []
+}
