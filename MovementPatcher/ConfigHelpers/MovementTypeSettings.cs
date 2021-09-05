@@ -179,11 +179,11 @@ namespace MovementPatcher.ConfigHelpers {
 		}
 
 		[MaintainOrder]
-
+		[SettingName("Movement Type"), Tooltip("This corresponds with a \"MOVT - Movement Type\" record. Each section has one target movement type.")]
 		public FormLink<IMovementTypeGetter> MoveTypeFormLink;
-
+		[Tooltip("This subsection contains all of the walk/run speed values associated with this movement type.")]
 		public MovementSpeed MovementSpeed;
-
+		[Tooltip("This subsection contains the 3 rotational speed values associated with this movement type.")]
 		public RotationSpeed RotationSpeed;
 
 		public bool ShouldSkip()
