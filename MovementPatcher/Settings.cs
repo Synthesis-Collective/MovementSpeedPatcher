@@ -11,7 +11,7 @@ namespace MovementPatcher {
 	class Settings {
 		[MaintainOrder]
 		public GameSettings GameSettings = new(Constants.DefaultGameSettings.FastWalkInterpolation, Constants.DefaultGameSettings.JogInterpolation);
-		[SettingName("Movement Type Settings")]
+		[SettingName("Movement Types")]
 		public List<MovementTypeSettings> MovementTypes = new() { 
 			new(Skyrim.MovementType.NPC_Sprinting_MT,				
 				moveSpeeds: new (
