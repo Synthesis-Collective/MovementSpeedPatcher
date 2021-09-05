@@ -31,7 +31,8 @@ namespace MovementPatcher {
 
 			// iterate through movement types
 			foreach ( var movt in state.LoadOrder.PriorityOrder.MovementType().WinningOverrides() ) {
-				if ( movt == null || movt.EditorID == null ) // skip any movement types without editor IDs as they probably shouldn't be touched
+				// skip null records, records from blacklisted mods, and skip any movement types without editor IDs as they probably shouldn't be touched
+				if ( movt == null || movt.EditorID == null || Settings.IsModKeyBlacklisted(movt.FormKey.ModKey) )
 					continue;
 				var moveType = movt.DeepCopy(); // deep copy movement type to temp obj
 				if ( moveType == null )

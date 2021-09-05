@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using MovementPatcher.ConfigHelpers;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.WPF.Reflection.Attributes;
 using Noggog;
@@ -9,7 +11,7 @@ namespace MovementPatcher {
 	class Settings {
 		[MaintainOrder]
 		public GameSettings GameSettings = new(Constants.DefaultGameSettings.FastWalkInterpolation, Constants.DefaultGameSettings.JogInterpolation);
-
+		[SettingName("Movement Type Settings")]
 		public List<MovementTypeSettings> MovementTypes = new() { 
 			new(Skyrim.MovementType.NPC_Sprinting_MT,				
 				moveSpeeds: new (
@@ -387,6 +389,18 @@ namespace MovementPatcher {
 				) 
 			)
 		};
+
+		[Tooltip("Any plugins listed here will not be overridden. (This setting will be improved in future versions!)")]
+		public List<string> BlacklistedMods = new() {
+			"Mortal Enemies.esp",
+			"Wildcat - Combat of Skyrim.esp"
+		};
+
+		public bool IsModKeyBlacklisted(ModKey modkey)
+		{
+			Console.WriteLine( modkey.FileName );
+			return BlacklistedMods.Contains(modkey.FileName);
+		}
 
 		private MovementTypeSettings GetApplicableMovementType(MovementType movt)
 		{
