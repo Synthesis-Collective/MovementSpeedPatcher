@@ -37,14 +37,14 @@ namespace MovementPatcher {
 				var moveType = movt.DeepCopy(); // deep copy movement type to temp obj
 				if ( moveType == null )
 					continue;
-				Console.WriteLine("Processing Movement Type: \"" + movt.EditorID + '\"');
+				Console.WriteLine( "Processing Movement Type: \"" + movt.EditorID + '\"' );
 				moveType = Settings.ApplySettingsToMovementType( moveType, out var modifiedRecordCount );
 				if ( modifiedRecordCount > 0 ) {
 					state.PatchMod.MovementTypes.Set( moveType );
 					++counter;
 					Console.WriteLine("\tModified " + modifiedRecordCount + " values.");
 				}
-				Console.WriteLine();
+				Console.WriteLine(); // keep a newline between entries
 			}
 
 			Console.WriteLine( "\n\nPatcher has completed successfully.\nModified " + counter + " records.\n" );
