@@ -1,4 +1,3 @@
-using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.WPF.Reflection.Attributes;
@@ -18,15 +17,16 @@ namespace MovementPatcher {
 			FastWalkInterpolation = fastWalkInterpolation;
 			JogInterpolation = jogInterpolation;
 		}
+
 		[MaintainOrder]
 		[Tooltip("Unchecking this will disable all game setting modifications.")]
 		public bool Enabled;
 		public float FastWalkInterpolation;
 		public float JogInterpolation;
 
-		public bool AddGameSettingsToPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
+		public int AddGameSettingsToPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
 		{
-			if ( !Enabled ) return false;
+			if ( !Enabled ) return 0;
 			state.PatchMod.GameSettings.Add(new GameSettingFloat( state.PatchMod.GetNextFormKey(), state.PatchMod.SkyrimRelease ) {
 				EditorID = Constants.FastWalkInterpolationEditorID,
 				Data = FastWalkInterpolation
@@ -35,7 +35,7 @@ namespace MovementPatcher {
 				EditorID = Constants.JogInterpolationEditorID,
 				Data = JogInterpolation
 			} );
-			return true;
+			return 2;
 		}
 	}
 }

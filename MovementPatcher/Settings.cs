@@ -1,7 +1,9 @@
-using Mutagen.Bethesda.WPF.Reflection.Attributes;
-using MovementPatcher.ConfigHelpers;
 using System.Collections.Generic;
+using MovementPatcher.ConfigHelpers;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Mutagen.Bethesda.Skyrim;
+using Mutagen.Bethesda.WPF.Reflection.Attributes;
+using Noggog;
 
 namespace MovementPatcher {
 	class Settings {
@@ -32,7 +34,8 @@ namespace MovementPatcher {
 					rotateInPlaceWalk: 90F, 
 					rotateInPlaceRun: 90F, 
 					rotateRunning: 90F 
-				)),
+				)
+			),
 			new(Skyrim.MovementType.NPC_Sneaking_MT,				
 				moveSpeeds: new ( 
 					left: new ( 
@@ -56,7 +59,8 @@ namespace MovementPatcher {
 					rotateInPlaceWalk: 90F, 
 					rotateInPlaceRun: 180F,
 					rotateRunning: 180F 
-				)),
+				)
+			),
 			new(Skyrim.MovementType.NPC_BowDrawn_MT,				
 				moveSpeeds: new (
 					left: new ( 
@@ -64,23 +68,24 @@ namespace MovementPatcher {
 						run: 115F 
 					),
 					right: new(
-						74.889999F, 
-						115F
+						walk: 74.889999F, 
+						run: 115F
 					),
-					forward: new( 
-						110F, 
-						135F
+					forward: new(
+						walk: 110F, 
+						run: 135F
 					),
 					back: new (
-						65.110001F,
-						98F 
+						walk: 65.110001F,
+						run: 98F 
 					)
 				), 
 				rotateSpeeds: new(
-					90F,
-					90F, 
-					90F
-				)),
+					rotateInPlaceWalk: 90F,
+					rotateInPlaceRun: 90F, 
+					rotateRunning: 90F
+				)
+			),
 			new(Skyrim.MovementType.NPC_Default_MT,					
 				moveSpeeds: new (
 					new ( 
@@ -88,23 +93,24 @@ namespace MovementPatcher {
 						run: 305F 
 					), 
 					new(
-						108F, 
-						305F
+						walk: 108F,
+						run: 305F
 					), 
 					new(
-						110F, 
-						305F
+						walk: 110F,
+						run: 305F
 					), 
 					back: new (
-						97F, 
-						165F
+						walk: 97F,
+						run: 165F
 					)
 				), 
 				rotateSpeeds: new(
-					180F, 
-					180F, 
-					180F
-				)),
+					rotateInPlaceWalk: 180F, 
+					rotateInPlaceRun: 180F, 
+					rotateRunning: 180F
+				)
+			),
 			new(Skyrim.MovementType.NPC_Blocking_MT,				
 				moveSpeeds: new (
 					new ( 
@@ -112,171 +118,301 @@ namespace MovementPatcher {
 						run: 112F 
 					), 
 					new( 
-						112F, 
-						112F 
+						walk: 112F, 
+						run: 112F 
 					), 
 					new( 
-						112F,
-						112F 
+						walk: 112F,
+						run: 112F 
 					), 
 					back: new (
-						97F, 
-						97F
+						walk: 97F, 
+						run: 97F
 					) 
 				), 
-				rotateSpeeds: new( // TODO: Fill in all these goddamn values! -- have fun :)
-				)),
-			new(Skyrim.MovementType.NPC_Swimming_MT,				
+				rotateSpeeds: new(
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				) 
+			),
+			new(Skyrim.MovementType.NPC_Swimming_MT,
 				moveSpeeds: new (
-					new ( 
+					left: new ( 
 						walk: 110F, 
 						run: 305F
 					),
-					new(
-					
+					right: new(
+						walk: 108F,
+						run: 305F
 					),
-					new(
-				
+					forward: new(
+						walk: 110F,
+						run: 305F
 					), 
 					back: new (
-				
+						walk: 97F,
+						run: 165F
 					)
 				), 
 				rotateSpeeds: new(
-					
-				)),
-			new(Skyrim.MovementType.NPC_1HM_MT,					
-				moveSpeeds: new (
-					new (
-					
-					), 
-					new(
-					
-					), 
-					new(
-					
-					), 
-					back: new (
-					
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				)
+			),
+			new(Skyrim.MovementType.NPC_1HM_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
 					)
 				),
 				rotateSpeeds: new(
-				
-				)),
-			new(Skyrim.MovementType.NPC_2HM_MT,		
-				moveSpeeds: new (
-					new (
-					
-					), 
-					new(
-					
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				) 
+			),
+			new(Skyrim.MovementType.NPC_2HM_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
 					),
-					new(
-					
-					), 
-					back: new (
-					
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
 					)
 				),
 				rotateSpeeds: new(
-				
-				)),
-			new(Skyrim.MovementType.NPC_Bow_MT,		
-				moveSpeeds: new (
-					new (
-					
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				)
+			),
+			new(Skyrim.MovementType.NPC_Bow_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
 					),
-					new(
-					
+					right: new(
+						walk: 108F,
+						run: 305F
 					),
-					new(
-					
+					forward: new(
+						walk: 110F,
+						run: 305F
 					),
-					back: new (
-					
+					back: new(
+						walk: 97F,
+						run: 165F
 					)
-				), 
-				rotateSpeeds: new(
-				
-				)),
-			new(Skyrim.MovementType.NPC_MagicCasting_MT,		
-				moveSpeeds: new (
-					new (
-				), 
-					new(
-				), 
-					new(
-				), 
-					back: new (
-				)
-				), 
-				rotateSpeeds: new(
-				)),
-			new(Skyrim.MovementType.NPC_Attacking_MT,				
-				moveSpeeds: new (
-					new (
-				), 
-					new(
-				), 
-					new(
-				), 
-					back: new (
-				)
-				), 
-				rotateSpeeds: new(
-				)),
-			new(Skyrim.MovementType.NPC_PowerAttacking_MT,			
-				moveSpeeds: new (
-					new (
-				), 
-					new(
-				), 
-					new(
-				), 
-					back: new (
-				)
-				), 
-				rotateSpeeds: new(
-				)),
-			new(Skyrim.MovementType.NPC_Attacking2H_MT,			
-				moveSpeeds: new (
-					new (
-				),
-					new(
-				), 
-					new(
-				), 
-					back: new (
-				)
 				),
 				rotateSpeeds: new(
-				)),
-			new(Skyrim.MovementType.NPC_Blocking_ShieldCharge_MT,	
-				moveSpeeds: new (
-					new (
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				) 
+			),
+			new(Skyrim.MovementType.NPC_MagicCasting_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 140F
+					)
 				),
-					new(
-				), 
-					new(
-				), 
-					back: new (
-				)
-				), 
 				rotateSpeeds: new(
-				)),
-			new(Skyrim.MovementType.NPC_BowDrawn_QuickShot_MT,	
-				moveSpeeds: new (
-					new (
-				), 
-					new(
-				), 
-					new(
-				), 
-					back: new (
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
 				)
-				), 
+			),
+			new(Skyrim.MovementType.NPC_Attacking_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
+					)
+				),
 				rotateSpeeds: new(
-				)),
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				)
+			),
+			new(Skyrim.MovementType.NPC_PowerAttacking_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
+					)
+				),
+				rotateSpeeds: new(
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				)
+			),
+			new(Skyrim.MovementType.NPC_Attacking2H_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
+					)
+				),
+				rotateSpeeds: new(
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				) 
+			),
+			new(Skyrim.MovementType.NPC_Blocking_ShieldCharge_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
+					)
+				),
+				rotateSpeeds: new(
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				) 
+			),
+			new(Skyrim.MovementType.NPC_BowDrawn_QuickShot_MT,
+				moveSpeeds: new(
+					left: new(
+						walk: 110F,
+						run: 305F
+					),
+					right: new(
+						walk: 108F,
+						run: 305F
+					),
+					forward: new(
+						walk: 110F,
+						run: 305F
+					),
+					back: new(
+						walk: 97F,
+						run: 165F
+					)
+				),
+				rotateSpeeds: new(
+					rotateInPlaceWalk: 180F,
+					rotateInPlaceRun: 180F,
+					rotateRunning: 180F
+				) 
+			)
 		};
+
+		private MovementTypeSettings GetApplicableMovementType(MovementType movt)
+		{
+			foreach ( var movtSetting in MovementTypes ){
+				if ( movtSetting.ShouldSkip() )
+					continue;
+				if ( movtSetting.MoveTypeFormLink.FormKey.Equals( movt.FormKey ) )
+					return movtSetting;
+			}
+			return Constants.NullSettings;
+		}
+
+		public MovementType ApplySettingsToMovementType(MovementType movt, out int modified)
+		{
+			modified = 0;
+			var stats = GetApplicableMovementType(movt);
+
+			if (stats == Constants.NullSettings || stats.ShouldSkip() )
+				return movt;
+
+			return stats.SetMovementTypeValues(movt, out modified);
+		}
+
+		public bool ShouldSkip()
+		{
+			return !MovementTypes.Any() && !GameSettings.Enabled;
+		}
 	}
 }

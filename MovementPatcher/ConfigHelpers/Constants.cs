@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MovementPatcher.ConfigHelpers;
 
 namespace MovementPatcher {
 	public readonly struct Constants {
@@ -19,5 +15,7 @@ namespace MovementPatcher {
 			public const float FastWalkInterpolation = 0.001F;
 			public const float JogInterpolation = 0.999F;
 		}
+
+		public static readonly MovementTypeSettings NullSettings = new();
 	}
 }

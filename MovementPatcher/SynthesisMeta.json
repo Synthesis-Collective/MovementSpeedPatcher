@@ -1,8 +1,8 @@
 {
-  "Nickname": "MovementPatcher",
+  "Nickname": "Movement Speed Patcher",
   "Visibility": "Visible",
   "OneLineDescription": "Sync player & NPC speeds, fully customizable.",
-  "LongDescription": "",
+  "LongDescription": "Comprehensive movement speed overhaul contained within a single patcher.",
   "PreferredAutoVersioning": "Default",
   "RequiredMods": []
 }

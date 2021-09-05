@@ -5,10 +5,11 @@ using Noggog;
 
 namespace MovementPatcher.ConfigHelpers {
 	public struct ResolveValue {
-		public static float Float(float current, float setting, out bool modified)
+		public static (float, int) Float(float current, float setting)
 		{
-			modified = !setting.EqualsWithin( current ) && !setting.EqualsWithin(Constants.NullFloat);
-			return modified ? setting : current; // return setting val if valid, else return current
+			return !setting.EqualsWithin( current ) && !setting.EqualsWithin( Constants.NullFloat ) 
+				? (setting, 1)	// true; return setting value & 1
+				: (current, 0); // false; return current value & 0
 		}
 	}
 	// Container for walk/run speeds for one direction
@@ -39,14 +40,16 @@ namespace MovementPatcher.ConfigHelpers {
 			run = Run;
 		}
 
-		public (float, float) GetResolvedValuePair(float currentWalk, float currentRun, out bool modified)
+		public (float, float) GetResolvedValuePair(float currentWalk, float currentRun, out int countChanges)
 		{
-			modified = false;
+			countChanges = 0;
 			if ( ShouldSkip() )
 				return (currentWalk, currentRun);
-			currentWalk = ResolveValue.Float(currentWalk, Walk, out var changedWalk);
-			currentRun = ResolveValue.Float(currentRun, Run, out var changedRun);
-			modified = changedWalk || changedRun;
+			int countModifier;
+			(currentWalk, countModifier) = ResolveValue.Float(currentWalk, Walk);
+			countChanges += countModifier;
+			(currentRun, countModifier) = ResolveValue.Float(currentRun, Run);
+			countChanges += countModifier;
 			return (currentWalk, currentRun);
 		}
 
@@ -138,15 +141,18 @@ namespace MovementPatcher.ConfigHelpers {
 			running = Running;
 		}
 
-		public (float, float, float) GetResolvedValueTuple(float currentInPlaceWalk, float currentInPlaceRun, float currentRunning, out bool modified)
+		public (float, float, float) GetResolvedValueTuple(float currentInPlaceWalk, float currentInPlaceRun, float currentRunning, out int countChanges)
 		{
-			modified = false;
+			countChanges = 0;
 			if ( ShouldSkip() )
 				return (currentInPlaceWalk, currentInPlaceRun, currentRunning);
-			currentInPlaceWalk = ResolveValue.Float(currentInPlaceWalk, InPlace.Walk, out var changedInPlaceWalk);
-			currentInPlaceRun = ResolveValue.Float(currentInPlaceRun, InPlace.Run, out var changedInPlaceRun);
-			currentRunning = ResolveValue.Float( currentRunning, Running, out var changedRunning );
-			modified = changedInPlaceWalk || changedInPlaceRun || changedRunning;
+			int countModifier;
+			(currentInPlaceWalk, countModifier) = ResolveValue.Float(currentInPlaceWalk, InPlace.Walk);
+			countChanges += countModifier;
+			(currentInPlaceRun, countModifier) = ResolveValue.Float(currentInPlaceRun, InPlace.Run);
+			countChanges += countModifier;
+			(currentRunning, countModifier) = ResolveValue.Float( currentRunning, Running);
+			countChanges += countModifier;
 			return (currentInPlaceWalk, currentInPlaceRun, currentRunning);
 		}
 
@@ -160,21 +166,21 @@ namespace MovementPatcher.ConfigHelpers {
 	public class MovementTypeSettings {
 		public MovementTypeSettings()
 		{
-			Type = new();
-			Type.SetToNull();
+			MoveTypeFormLink = new();
+			MoveTypeFormLink.SetToNull();
 			MovementSpeed = new();
 			RotationSpeed = new();
 		}
-		public MovementTypeSettings(FormLink<IMovementTypeGetter> type, MovementSpeed moveSpeeds, RotationSpeed rotateSpeeds)
+		public MovementTypeSettings(FormLink<IMovementTypeGetter> movementType, MovementSpeed moveSpeeds, RotationSpeed rotateSpeeds)
 		{
-			Type = type;
+			MoveTypeFormLink = movementType;
 			MovementSpeed = moveSpeeds;
 			RotationSpeed = rotateSpeeds;
 		}
 
 		[MaintainOrder]
 
-		public FormLink<IMovementTypeGetter> Type;
+		public FormLink<IMovementTypeGetter> MoveTypeFormLink;
 
 		public MovementSpeed MovementSpeed;
 
@@ -182,20 +188,24 @@ namespace MovementPatcher.ConfigHelpers {
 
 		public bool ShouldSkip()
 		{
-			return Type.IsNull || ( MovementSpeed.ShouldSkip() && RotationSpeed.ShouldSkip() );
+			return MoveTypeFormLink.IsNull || ( MovementSpeed.ShouldSkip() && RotationSpeed.ShouldSkip() );
 		}
 
-		public MovementType SetMovementTypeValues(MovementType current, out bool modified)
+		public MovementType SetMovementTypeValues(MovementType current, out int countChanges)
 		{
-			modified = false;
+			countChanges = 0;
 			if ( ShouldSkip() )
 				return current;
-			(current.LeftWalk, current.LeftRun) = MovementSpeed.Left.GetResolvedValuePair(current.LeftWalk, current.LeftRun, out bool changedLeft );
-			(current.RightWalk, current.RightRun) = MovementSpeed.Left.GetResolvedValuePair(current.RightWalk, current.RightRun, out bool changedRight );
-			(current.ForwardWalk, current.ForwardRun) = MovementSpeed.Left.GetResolvedValuePair(current.ForwardWalk, current.ForwardRun, out bool changedForward );
-			(current.BackWalk, current.BackRun) = MovementSpeed.Left.GetResolvedValuePair(current.BackWalk, current.BackRun, out bool changedBack );
-			(current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun) = RotationSpeed.GetResolvedValueTuple( current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun, out var changedRotation);
-			modified = changedLeft || changedRight || changedForward || changedBack || changedRotation;
+			(current.LeftWalk, current.LeftRun) = MovementSpeed.Left.GetResolvedValuePair(current.LeftWalk, current.LeftRun, out var countChangesMod);
+			countChanges += countChangesMod;
+			( current.RightWalk, current.RightRun) = MovementSpeed.Left.GetResolvedValuePair(current.RightWalk, current.RightRun, out countChangesMod );
+			countChanges += countChangesMod;
+			(current.ForwardWalk, current.ForwardRun) = MovementSpeed.Left.GetResolvedValuePair(current.ForwardWalk, current.ForwardRun, out countChangesMod );
+			countChanges += countChangesMod;
+			(current.BackWalk, current.BackRun) = MovementSpeed.Left.GetResolvedValuePair(current.BackWalk, current.BackRun, out countChangesMod );
+			countChanges += countChangesMod;
+			(current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun) = RotationSpeed.GetResolvedValueTuple( current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun, out countChangesMod );
+			countChanges += countChangesMod;
 			return current;
 		}
 	}
