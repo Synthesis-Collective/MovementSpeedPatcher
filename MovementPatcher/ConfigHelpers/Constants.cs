@@ -2,7 +2,7 @@ using MovementPatcher.ConfigHelpers;
 
 namespace MovementPatcher {
 	public readonly struct Constants {
-		public const float NullFloat = -0.0F;
+		public const float NullFloat = -0F;
 		public const string FastWalkInterpolationEditorID = "fFastWalkInterpolationBetweenWalkAndRun";
 		public const string JogInterpolationEditorID = "fJogInterpolationBetweenWalkAndRun";
 

@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Mutagen.Bethesda.WPF.Reflection.Attributes;
 using Noggog;
 
@@ -22,7 +17,7 @@ namespace MovementPatcher.ConfigHelpers {
 			Running = rotateRunning;
 		}
 		// Constructor
-		public RotationSpeed(float rotateInPlaceWalk, float rotateInPlaceRun, float rotateRunning)
+		public RotationSpeed(float rotateInPlaceWalk, float rotateInPlaceRun, float rotateRunning = Constants.NullFloat)
 		{
 			InPlace = new( rotateInPlaceWalk, rotateInPlaceRun );
 			Running = rotateRunning;
@@ -36,7 +31,7 @@ namespace MovementPatcher.ConfigHelpers {
 		[Tooltip( "Actor turning speed while sprinting." )]
 		public float Running;
 
-		public void Deconstruct(out DirectionSpeed inPlace, out float running)
+		public void Deconstruct(out DirectionSpeed inPlace, out float? running)
 		{
 			inPlace = InPlace;
 			running = Running;

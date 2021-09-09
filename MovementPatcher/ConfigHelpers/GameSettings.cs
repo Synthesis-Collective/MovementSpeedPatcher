@@ -3,7 +3,7 @@ using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.WPF.Reflection.Attributes;
 
 namespace MovementPatcher {
-	class GameSettings {
+	internal class GameSettings {
 		public GameSettings()
 		{
 			Enabled = true;

@@ -5,9 +5,8 @@ using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 
 namespace MovementPatcher {
-	public class Program {
+	public static class Program {
 		private static Lazy<Settings> _lazySettings = null!;
-
 		private static Settings Settings => _lazySettings.Value;
 
         public static async Task<int> Main(string[] args)
@@ -22,10 +21,11 @@ namespace MovementPatcher {
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
 		{
 			if ( Settings.ShouldSkip() ) {
-				Console.WriteLine( "\n\nAll settings for this patcher are disabled, patching failed without error.\n" );
+				Console.WriteLine( "\n\nAll settings for this patcher are disabled, patching failed without error.\nModified 0 records.\n" );
 				return;
 			}
-			Console.WriteLine( "\n\nMovement Speed Patcher\n\nRunning Patcher...\n" );
+
+			Console.WriteLine( "\n\n=== Movement Speed Patcher ===\n\nRunning Patcher...\n" );
 
 			// init record counter to 2 or 0 depending on whether game settings are enabled.
 			var counter = Settings.GameSettings.AddGameSettingsToPatch( state );
@@ -47,10 +47,7 @@ namespace MovementPatcher {
 				}
 				Console.WriteLine(); // keep a newline between entries
 			}
-
 			Console.WriteLine( "\n\nPatcher has completed successfully.\nModified " + counter + " records.\n" );
         }
-
-		
     }
 }
