@@ -9,5 +9,5 @@ By using Synthesis, it supports _all_ Movement Type records from _all mods_ by a
 You can download the external patcher version on the Releases page of this repository, or you can get the full version by adding it through the Synthesis GUI's "Git Repository" button.  
     ![](https://i.imgur.com/6ko5sQW.png)
     
-See the Wiki page for documentation & more detailed installation instructions.
+See the [Wiki](https://github.com/Synthesis-Collective/MovementSpeedPatcher/wiki) page for documentation & more detailed installation instructions.
 
