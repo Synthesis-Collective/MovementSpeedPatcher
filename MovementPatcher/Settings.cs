@@ -392,14 +392,20 @@ namespace MovementPatcher
 		};
 
 		[Tooltip("Any plugins listed here will not be overridden. (This setting will be improved in future versions!)")]
-		public List<string> BlacklistedMods = new() {
-			"Mortal Enemies.esp",
-			"Wildcat - Combat of Skyrim.esp"
-		};
+		public List<ModKey> BlacklistedMods = new()
+        {
+			ModKey.FromNameAndExtension("Mortal Enemies.esp"),
+			ModKey.FromNameAndExtension("Wildcat - Combat of Skyrim.esp"),
+			ModKey.FromNameAndExtension("consistent sensitivity.esp"),
+        };
+
+		[SettingName("Enable Exceptions")]
+		[Tooltip("If settings are invalid, throws an exception to interrupt the patcher process. Disabled by default.")]
+		public bool ThrowExceptions;
 
 		public bool IsModKeyBlacklisted(ModKey modkey)
 		{
-			return BlacklistedMods.Contains(modkey.FileName);
+			return BlacklistedMods.Contains(modkey);
 		}
 
 		private MovementTypeSettings GetApplicableMovementType(MovementType movt)
