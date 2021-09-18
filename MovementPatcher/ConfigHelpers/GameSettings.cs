@@ -23,19 +23,5 @@ namespace MovementPatcher {
 		public bool Enabled;
 		public float FastWalkInterpolation;
 		public float JogInterpolation;
-
-		public int AddGameSettingsToPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
-		{
-			if ( !Enabled ) return 0;
-			state.PatchMod.GameSettings.Add(new GameSettingFloat( state.PatchMod.GetNextFormKey(), state.PatchMod.SkyrimRelease ) {
-				EditorID = Constants.FastWalkInterpolationEditorID,
-				Data = FastWalkInterpolation
-			} );
-			state.PatchMod.GameSettings.Add(new GameSettingFloat( state.PatchMod.GetNextFormKey(), state.PatchMod.SkyrimRelease ) {
-				EditorID = Constants.JogInterpolationEditorID,
-				Data = JogInterpolation
-			} );
-			return 2;
-		}
 	}
 }

@@ -27,8 +27,24 @@ namespace MovementPatcher {
 
 			Console.WriteLine( "\n\n=== Movement Speed Patcher ===\n\nRunning Patcher...\n" );
 
-			// init record counter to 2 or 0 depending on whether game settings are enabled.
-			var counter = Settings.GameSettings.AddGameSettingsToPatch( state );
+			// Game Settings
+			if (Settings.GameSettings.Enabled)
+            {
+				state.PatchMod.GameSettings.Add(new GameSettingFloat(state.PatchMod.GetNextFormKey(), state.PatchMod.SkyrimRelease)
+				{
+					EditorID = Constants.FastWalkInterpolationEditorID,
+					Data = Settings.GameSettings.FastWalkInterpolation
+				});
+				Console.WriteLine($"Set Game Setting {Constants.FastWalkInterpolationEditorID} = {Settings.GameSettings.FastWalkInterpolation}");
+				++counter;
+				state.PatchMod.GameSettings.Add(new GameSettingFloat(state.PatchMod.GetNextFormKey(), state.PatchMod.SkyrimRelease)
+				{
+					EditorID = Constants.JogInterpolationEditorID,
+					Data = Settings.GameSettings.JogInterpolation
+				});
+				Console.WriteLine($"Set Game Setting {Constants.JogInterpolationEditorID} = {Settings.GameSettings.JogInterpolation}");
+				++counter;
+			}
 
 			// iterate through movement types
 			foreach ( var movt in state.LoadOrder.PriorityOrder.MovementType().WinningOverrides() ) {
