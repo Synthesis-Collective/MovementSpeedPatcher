@@ -399,10 +399,6 @@ namespace MovementPatcher
 			ModKey.FromNameAndExtension("consistent sensitivity.esp"),
         };
 
-		[SettingName("Enable Exceptions")]
-		[Tooltip("If settings are invalid, throws an exception to interrupt the patcher process. Disabled by default.")]
-		public bool ThrowExceptions;
-
 		public bool IsModKeyBlacklisted(ModKey modkey)
 		{
 			return BlacklistedMods.Contains(modkey);

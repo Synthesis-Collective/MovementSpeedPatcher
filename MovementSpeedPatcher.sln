@@ -19,7 +19,6 @@ Global
 		{C45D1BCC-D359-42BB-9205-7BE83AED6755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C45D1BCC-D359-42BB-9205-7BE83AED6755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C45D1BCC-D359-42BB-9205-7BE83AED6755}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C45D1BCC-D359-42BB-9205-7BE83AED6755}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

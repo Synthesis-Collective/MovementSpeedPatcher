@@ -10,13 +10,13 @@ namespace MovementPatcher.ConfigHelpers {
 			MoveTypeFormLink = new();
 			MoveTypeFormLink.SetToNull();
 			MovementSpeed = new();
-			RotationSpeed = new();
+//			RotationSpeed = new();
 		}
 		public MovementTypeSettings(FormLink<IMovementTypeGetter> movementType, MovementSpeed moveSpeeds, RotationSpeed rotateSpeeds)
 		{
 			MoveTypeFormLink = movementType;
 			MovementSpeed = moveSpeeds;
-			RotationSpeed = rotateSpeeds;
+//			RotationSpeed = rotateSpeeds;
 		}
 
 		[MaintainOrder]
@@ -24,13 +24,13 @@ namespace MovementPatcher.ConfigHelpers {
 		public FormLink<IMovementTypeGetter> MoveTypeFormLink;
 		[Tooltip("This subsection contains all of the walk/run speed values associated with this movement type.")]
 		public MovementSpeed MovementSpeed;
-		[Tooltip("This subsection contains the 3 rotational speed values associated with this movement type.")]
-		public RotationSpeed RotationSpeed;
+//		[Tooltip("This subsection contains the 3 rotational speed values associated with this movement type.")]
+//		public RotationSpeed RotationSpeed;
 
 		// Returns true if this instance is invalid and should be skipped.
 		public bool ShouldSkip()
 		{
-			return MoveTypeFormLink.IsNull || ( MovementSpeed.ShouldSkip() && RotationSpeed.ShouldSkip() );
+			return MoveTypeFormLink.IsNull || MovementSpeed.ShouldSkip();//&& RotationSpeed.ShouldSkip() );
 		}
 
 		// takes a MovementType, changes its values if applicable, then returns it alongside the number of changed values.
@@ -47,8 +47,8 @@ namespace MovementPatcher.ConfigHelpers {
 			countChanges += countChangesMod;
 			(current.BackWalk, current.BackRun) = MovementSpeed.Back.GetResolvedValuePair(current.BackWalk, current.BackRun, out countChangesMod );
 			countChanges += countChangesMod;
-			(current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun) = RotationSpeed.GetResolvedValueTuple( current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun, out countChangesMod );
-			countChanges += countChangesMod;
+//			(current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun) = RotationSpeed.GetResolvedValueTuple( current.RotateInPlaceWalk, current.RotateInPlaceRun, current.RotateWhileMovingRun, out countChangesMod );
+//			countChanges += countChangesMod;
 			return current;
 		}
 	}

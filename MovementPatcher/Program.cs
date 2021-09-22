@@ -27,8 +27,6 @@ namespace MovementPatcher {
 
 			// Check if settings are valid
 			if ( Settings.ShouldSkip() ) {
-				if (Settings.ThrowExceptions)
-					throw new Exception($"Movement Patcher Failed -- No Valid Settings Were Found/Enabled, and {Settings.ThrowExceptions} is enabled.");
 				PrintLogEnd(counter, "Patcher Failed! No settings were enabled.");
 				return;
 			}
